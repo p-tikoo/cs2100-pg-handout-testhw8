@@ -30,6 +30,8 @@ For example, if the keyword is `"effervescence"`, it should:
 
 Overwrite the `__eq__()` and `__hash__()` methods so that two `WikipediaPage`s are equal if they have the same keyword (title in the URL).
 
+Overwrite the `__str__()` and `__repr__()` methods to return the keyword (title in the URL).
+
 ## Part 2: Make `WikipediaPage` `Comparable`
 
 Choose a word, such as "effervescence". Make a class attribute that stores this word as a `target_word`.
@@ -37,7 +39,19 @@ When two `WikipediaPage`s are compared, the one with more instances of the `targ
 
 ## Part 3: Add the ability to interactively traverse the Wikipedia webpage graph
 
+We will now treat the `WikipediaPage` class as a node in a graph (or tree). It has a list of options for what
+its children could be (the Wikipedia links available on the page), but they are not children, because they are
+of type `str` and not `WikipediaPage`. Add another attribute to `WikipediaPage` called `children` which starts
+as an empty list of `WikipediaPage`. We will add pages to it as we interactively surf Wikipedia.org.
 
-## Part 4 Try it out
+In `main.py`, implement the `WikipediaSurfer` constructor and methods as described in the comments.
+You will need to add documentation. You may remove the "TODO" comments after implementing them.
 
-In `main.py`,
+It may be useful to `pip3 install sortedcontainers sortedcontainers-stubs`.
+
+## Part 4: Try it out
+
+In `main.py`, create an instance of `WikipediaSurfer` and interact with your application. After quitting, copy
+the list of keywords outputted into the appropriate question in `Summary.md`.
+
+Anwer the other questions in `Summary.md`.

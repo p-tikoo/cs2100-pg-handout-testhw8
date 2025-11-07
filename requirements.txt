@@ -1,2 +1,6 @@
 coverage
 pylint
+sortedcontainers
+sortedcontainers-stubs
+requests
+bs4
