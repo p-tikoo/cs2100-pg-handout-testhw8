@@ -24,7 +24,7 @@ class WikipediaPage:
         
         # Set up headers with User-Agent as per Wikimedia policy
         headers = {
-            'User-Agent': 'Educational Project (email@example.com)'  # Replace with your actual info
+            'User-Agent': 'Educational Project CS2100 (your.email@northeastern.edu)'  # UPDATE THIS
         }
         
         # Request the page
@@ -42,6 +42,9 @@ class WikipediaPage:
         # Get all text from the main content div
         content_div = soup.find('div', {'id': 'mw-content-text'})
         if content_div:
+            # Remove unwanted elements (references, navigation boxes, etc.)
+            for unwanted in content_div.find_all(['sup', 'div'], class_=['reference', 'navbox', 'reflist', 'infobox']):
+                unwanted.decompose()
             self.text = content_div.get_text()
         else:
             self.text = soup.get_text()
@@ -51,7 +54,10 @@ class WikipediaPage:
         for link in soup.find_all('a', href=True):
             href = link['href']
             # Check if it's a Wikipedia article link
-            if href.startswith('/wiki/') and ':' not in href:
+            # Exclude special pages, files, categories, etc.
+            if (href.startswith('/wiki/') and 
+                ':' not in href and 
+                not href.startswith('/wiki/Main_Page')):
                 # Extract the article title (remove '/wiki/' prefix)
                 article_title = href[6:]  # Remove '/wiki/'
                 wiki_links.add(article_title)
